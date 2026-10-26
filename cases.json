@@ -1,0 +1,92 @@
+[{
+    "id": "TC001",
+    "title": "使用正确账号密码登录成功",
+    "module": "登录",
+    "priority": "P0",
+    "status": "pass"
+  },
+  {
+    "id": "TC002",
+    "title": "密码错误时提示错误信息",
+    "module": "登录",
+    "priority": "P0",
+    "status": "pass"
+  },
+  {
+    "id": "TC003",
+    "title": "账号为空时不允许提交",
+    "module": "登录",
+    "priority": "P1",
+    "status": "fail"
+  },
+  {
+    "id": "TC004",
+    "title": "连续输错5次密码账号锁定",
+    "module": "登录",
+    "priority": "P2",
+    "status": "pass"
+  },
+  {
+    "id": "TC005",
+    "title": "按商品名称关键字搜索出结果",
+    "module": "搜索",
+    "priority": "P0",
+    "status": "pass"
+  },
+  {
+    "id": "TC006",
+    "title": "搜索无结果时展示空状态页",
+    "module": "搜索",
+    "priority": "P1",
+    "status": "pass"
+  },
+  {
+    "id": "TC007",
+    "title": "搜索关键词前后空格自动去除",
+    "module": "搜索",
+    "priority": "P2",
+    "status": "fail"
+  },
+  {
+    "id": "TC008",
+    "title": "商品加入购物车数量累加正确",
+    "module": "购物车",
+    "priority": "P0",
+    "status": "pass"
+  },
+  {
+    "id": "TC009",
+    "title": "购物车商品库存不足时下单失败",
+    "module": "购物车",
+    "priority": "P1",
+    "status": "pass"
+  },
+  {
+    "id": "TC010",
+    "title": "删除购物车单条商品后总价更新",
+    "module": "购物车",
+    "priority": "P1",
+    "status": "fail"
+  },
+  {
+    "id": "TC011",
+    "title": "提交订单跳转到支付页",
+    "module": "下单",
+    "priority": "P0",
+    "status": "pass"
+  },
+  {
+    "id": "TC012",
+    "title": "收货地址为空时拦截下单",
+    "module": "下单",
+    "priority": "P2",
+    "status": "pass"
+  },
+  {
+    "id": "TC013",
+    "title": "支付接口未就绪导致提交订单阻塞",
+    "module": "下单",
+    "priority": "P2",
+    "status": "block"
+  }
+]

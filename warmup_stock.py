@@ -1,3 +1,14 @@
+# name = '杨洪桂'
+# years = 9
+# goal = '成为一名自动化测试工程师'
+#
+# print(f'大家好，我的名字叫{name}，做了{years}年测试了，目标是{goal}。明年就是{years+1}年测试了！')
+#
+# import  json
+# print(len(json.load(open('cases.json',encoding='utf-8'))))
+
+# ===============================================================================
+
 # products = [
 #     {'name': 'Wireless Mouse', 'stock': 12},
 #     {'name': 'Mechanical Keyboard', 'stock': 3},
@@ -105,7 +116,7 @@ import requests
 
 # 必背题默写---26.10.24
 # 1. codes = [200, 404, 500, 201, 403, 200, 302, 500]，数出 >= 400 的个数（for + if）
-codes = [200, 404, 500, 201, 403, 200, 302, 500]
+# codes = [200, 404, 500, 201, 403, 200, 302, 500]
 
 # li = []
 # for code in codes:
@@ -187,7 +198,7 @@ import requests
 
 # 热身题： 26.10.26
 #   1. times = [120, 350, 890, 210, 1500, 640]（毫秒）：for + if 数出 > 500 的个数，打印「慢请求数：3」。
-times = [120, 350, 890, 210, 1500, 640]
+# times = [120, 350, 890, 210, 1500, 640]
 # num = []
 # for t in times:
 #     if t > 500:
@@ -195,14 +206,14 @@ times = [120, 350, 890, 210, 1500, 640]
 # print(f'慢请求数：',len(num))
 
 #   2. 把第 1 题包成函数 count_slow(times)，返回个数；外面调用一次并 print。
-def count_slow(times):
-    count = []
-    for t in times:
-        if t > 500:
-            count.append(t)
-    return  len(count)
-
-print (f'慢请求数:',count_slow(times))
+# def count_slow(times):
+#     count = []
+#     for t in times:
+#         if t > 500:
+#             count.append(t)
+#     return  len(count)
+#
+# print (f'慢请求数:',count_slow(times))
 
 
 #   3. 接口写法：
@@ -222,11 +233,103 @@ import requests
 
 #   第二段 · 独立小题（20 分钟）
 #   写函数 count_by_code(codes)，返回统计每个状态码出现次数的字典（结果应含 200: 3）。
-codes = [200, 404, 500, 200, 403, 500, 200]
-def count_by_code(codes):
-    result = {}
+# codes = [200, 404, 500, 200, 403, 500, 200]
+# def count_by_code(codes):
+#     result = {}
+#     for code in codes:
+#         result[code] = result.get(code, 0) + 1
+#     return result
+# print(count_by_code(codes))
+
+
+
+'''
+一、首次推送（本次已走完）
+
+  1. 新建 .gitignore，写入：
+     .idea/
+     pycache/
+     *.pyc
+  2. git init -b main
+  3. git config --global user.name "yanghonggui"
+  4. git config --global user.email "你的GitHub邮箱"
+  5. git add .
+  6. git status
+  7. git commit -m "W1: Python 基础练习（petstore CRUD + 断言）"
+  8. 浏览器建空仓库 python-basics，不勾 README / .gitignore / license
+  9. git remote add origin https://github.com/yanghonggui/python-basics.git
+  10. git push -u origin main
+  11. 刷新仓库页，确认文件在
+
+  二、以后新增内容（日常）
+
+  1. git status
+  2. git add .
+  3. git commit -m "说明这次改了什么"
+  4. git push
+
+  注意
+
+  1. git add 后面的点不能漏
+  2. commit 前先 git status，别把 .idea、密码、token 提交进去
+  3. 弹登录时 Username 填 yanghonggui，Password 填 PAT
+'''
+
+# 26.10.31
+# 第一段 · 默写（换数据，3 题）
+#   1. 函数收口：codes = [500, 200, 503, 404, 500, 201]，写 count_5xx(codes) 返回 >=500 的个数，外面调用一次并 print。
+codes = [500, 200, 503, 404, 500, 201]
+def count_500(codes):
+    nums = []
     for code in codes:
-        result[code] = result.get(code, 0) + 1
-    return result
-print(count_by_code(codes))
+        if code >= 500:
+            nums.append(code)
+    return nums
+
+codes = count_500(codes)
+print(len(codes))
+
+#   2. 类：class OrderAPI，__init__(self, base_url) 存属性；get_orders(self) 返回 f-string 拼出 base_url + '/orders'。
+class OrderAPI:
+    def __init__(self,base_url):
+        self.base_url = base_url
+
+    def get_orders(self):
+        return f'这个地址是：{self.base_url}/orders'
+
+
+API  =OrderAPI('https:/www.baidu.com')
+print(API.get_orders())
+
+
+#  3. 接口：PUT https://petstore.swagger.io/v2/pet —— 更新宠物；json 传 id=9、name='rabbit'，断言状态码 200。
+url = 'https://petstore.swagger.io/v2/pet'
+data ={'id': 9, "name": "rabbit"}
+response = requests.put(url, json=data)
+assert response.status_code == 200
+print(response.status_code)
+print(response.json())
+
+
+#  第二段 · 独立小题（上次留的）
+pets = [
+      {'name': 'dog',  'price': 120},
+      {'name': 'cat',  'price': 80},
+      {'name': 'bird', 'price': 200}
+  ]
+#   写 expensive_names(pets, limit)，返回价格 > limit 的名字列表，两条 assert 自测：
+#   - limit=100 → ['dog', 'bird']
+#   - limit=150 → ['bird']
+
+def expensive_names(pets, limit):
+    li = []
+    for pet in pets:
+        if pet['price'] > limit:
+            li.append(pet['name'])
+    return li
+
+assert expensive_names(pets, 100) == ['dog', 'bird']
+assert expensive_names(pets, 150) == ['bird']
+print('通过')
+
 

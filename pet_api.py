@@ -83,32 +83,32 @@ class PetAPI:
         return r.json()
 
 
-api = PetAPI('https://petstore.swagger.io/v2')
-r1 = api.post({"id": 1, 'name': 'dog'})
-# 增加断言
-assert r1['name'] == 'dog'
-print(f'post 请求是：',r1)
+if __name__ == '__main__':
+    api = PetAPI('https://petstore.swagger.io/v2')
+    r1 = api.post({"id": 1, 'name': 'dog'},timeout =10)
+    # 增加断言
+    assert r1['name'] == 'dog'
+    print(f'post 请求是：', r1)
 
-r2 = api.get(r1['id'])
-print(f'Get 请求的是：',r2)
+    r2 = api.get(r1['id'],timeout =10)
+    print(f'Get 请求的是：', r2)
 
-r3 = api.put({'id':r1['id'], 'name': 'dog2'})
-print(f'Put 更新后的数据是：',r3)
+    r3 = api.put({'id': r1['id'], 'name': 'dog2'},timeout =10)
+    print(f'Put 更新后的数据是：', r3)
 
-r4 = api.get(r3['id'])
-assert r4['name'] == 'dog2', f'更新不成功，{r4["name"]}'
-print(f'Get 请求的是：',r4)
+    r4 = api.get(r3['id'],timeout =10)
+    assert r4['name'] == 'dog2', f'更新不成功，{r4["name"]}'
+    print(f'Get 请求的是：', r4)
 
-r5 = api.delete(r4['id'])
-print(f'Delete 请求的是：', r5)
+    r5 = api.delete(r4['id'],timeout =10)
+    print(f'Delete 请求的是：', r5)
 
-
-# 删除后要证明真删掉了
-url = f'https://petstore.swagger.io/v2/pet/{r4['id']}'
-r= requests.get(url)
-assert r.status_code == 404
-print(f'请求的地址是：', url)
-print(f'删除成功')
+    # 删除后要证明真删掉了
+    url = f'https://petstore.swagger.io/v2/pet/{r4['id']}'
+    r = requests.get(url,timeout =10)
+    assert r.status_code == 404
+    print(f'请求的地址是：', url)
+    print(f'删除成功')
 
 
 
